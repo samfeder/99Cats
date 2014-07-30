@@ -1,4 +1,12 @@
 class Cat < ActiveRecord::Base
+  has_many(
+    :rental_requests,
+    :class_name => "CatRentalRequest",
+    :foreign_key => :cat_id,
+    :primary_key => :id,
+    :dependent => :destroy
+  )
+
   COLORS = ["black", "brown", "orange", "brownish-orange" ,"calico", "mauve"]
 
   validates :age, :birthdate, :color, :name, :sex, :description, presence: true

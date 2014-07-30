@@ -6,7 +6,7 @@ class CatsController < ApplicationController
   end
 
   def show
-    @cat = Cat.find(params[:id])
+    @cat = Cat.includes(:rental_requests).find(params[:id])
     render :show
   end
 
@@ -25,7 +25,12 @@ class CatsController < ApplicationController
   end
 
   def update
-    fail
+    @cat = Cat.find(params[:id])
+    if @cat.update(cat_params)
+      redirect_to cat_url(@cat)
+    else
+      redirect_to edit_cat_url
+    end
   end
 
   def edit
@@ -34,7 +39,9 @@ class CatsController < ApplicationController
   end
 
   def destroy
-
+    @cat = Cat.find(params[:id])
+    @cat.destroy
+    redirect_to cats_url
   end
 
   private

@@ -1,8 +1,48 @@
 <h1><%= @cat.name %></h1>
-<p>Age: <%= @cat.age %></p>
-<p>Color: <%= @cat.color %></p>
-<p>Sex: <%= @cat.sex %></p>
-<p>Date of Birth: <%= @cat.birthdate %></p>
-<p>Description: <%= @cat.description %></p>
+
+<!--ADD TABS -->
+
+<table>
+  <tr align="right">
+    <th>Age: &nbsp;</th>
+    <td align="left"><%= @cat.age %></td>
+  </tr>
+
+  <tr align="right">
+    <th>Color: &nbsp;</th>
+    <td align="left"><%= @cat.color.capitalize %></td>
+    <tr>
+
+  <tr align="right">
+    <th>Sex: &nbsp;</th>
+    <td align="left"><%= @cat.sex %></td>
+  </tr>
+
+  <tr align="right">
+    <th>Date of Birth: &nbsp;</th>
+    <td align="left"><%= @cat.birthdate %></td>
+  </tr>
+
+  <tr align="right">
+    <th>Description: &nbsp;</th>
+    <td align="left"><%= @cat.description %></td>
+    <tr>
+</table>
+<br>
+
+  <% (@cat.rental_requests.sort_by do |rental|
+    rental.start_date
+    end).each do |rental| %>
+    <p>Start date: <%= rental.start_date %><br>
+       End date: <%= rental.end_date %><br>
+       Status: <%= rental.status %></p>
+  <% end %>
+
 
 <a href ="<%= edit_cat_url(@cat) %>">Edit <%= @cat.name %></a>
+<a href="<%= cats_url %>">Back to all cats</a>
+<br><br>
+<form action="<%= cat_url(@cat) %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button>Puts <%= @cat.name %> out of his misery</button>
+</form>
