@@ -1,0 +1,47 @@
+<h1>Edit <%= @cat.name %></h1>
+
+<form action="<%= cat_url(@cat) %>" method="POST">
+
+  <input type="hidden" name="_method" value="PUT">
+
+  <p><label>
+    Name
+  <input type="text" name="cat[name]" value="<%= @cat.name %>">
+  </label></p>
+
+  <p><label>
+    Date of Birth:
+  <input type="date" name="cat[birthdate]" value="<%= @cat.birthdate %>">
+  </label></p>
+
+  <p><label>
+    Age
+  <input type="number" name="cat[age]" value="<%= @cat.age %>">
+  </label></p>
+
+  <p>Sex:</p>
+
+  <p><label>
+    Male
+    <input type="radio" name="cat[sex]" value="M">
+  </label>
+  <label>
+    Female
+    <input type="radio" name="cat[sex]" value="F">
+  </label></p>
+
+  <p>Color
+  <select name="cat[color]">
+      <option value="<%= @cat.color %>"><%= @cat.color %></option>
+      <% Cat::COLORS.each do |color| %>
+      <% next if color == @cat.color %>
+        <option value="<%= color %>"><%= color.capitalize %></option>
+      <% end  %>
+  </select></p>
+
+  <label>
+    Description:<br>
+  <textarea name="cat[description]" value="<%= @cat.description %>"></textarea>
+  </label>
+<br>
+  <button>Submit</button>
