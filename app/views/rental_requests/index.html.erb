@@ -4,7 +4,7 @@
 <ul>
   <% @rentals.each do |rental|%>
   <li>
-    <a href ="<%= rental_request_url(rental)%>"><%=rental.cat.name%></a>
+    <a href ="<%= cat_url(rental.cat)%>"><%=rental.cat.name%></a>
   </li>
     <br>Start date: <%=rental.start_date%>
     <br>End date: <%=rental.end_date%><br><br>

@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
   resources :cats
-  resources :rental_requests
+  resources :rental_requests do
+    member do
+      post 'approve'
+    end
+    member do
+      post 'deny'
+    end
+  end
 end

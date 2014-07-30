@@ -11,11 +11,26 @@ class CatRentalRequest < ActiveRecord::Base
   validate :no_two_overlapping_requests, :if => :status_approved?
 
   def approve!
-    status = "APPROVED"
+    CatRentalRequest.transaction do
+      self.update!(status: "APPROVED")
+      cat_rentals = CatRentalRequest.where("cat_id = ?", cat_id)
+      cat_rentals.each do |rental|
+        next if rental.id == id
+        rental.deny!
+      end
+    end
+  end
+
+  def deny!
+    self.update!(status: "DENIED")
   end
 
   def status_approved?
     status == "APPROVED"
+  end
+
+  def pending?
+    status == "PENDING"
   end
 
   def no_two_overlapping_requests

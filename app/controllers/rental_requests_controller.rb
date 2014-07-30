@@ -6,7 +6,7 @@ class RentalRequestsController < ApplicationController
   end
 
   def show
-
+    redirect_to rental_requests_url
   end
 
   def create
@@ -33,6 +33,18 @@ class RentalRequestsController < ApplicationController
 
   def destroy
 
+  end
+
+  def approve
+    @rental = CatRentalRequest.find(params[:id])
+    @rental.approve!
+    redirect_to rental_requests_url
+  end
+
+  def deny
+    @rental = CatRentalRequest.find(params[:id])
+    @rental.deny!
+    redirect_to rental_requests_url
   end
 
   private
