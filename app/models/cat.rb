@@ -1,4 +1,7 @@
 class Cat < ActiveRecord::Base
+
+  COLORS = ["black", "brown", "orange", "brownish-orange" ,"calico", "mauve"]
+
   has_many(
     :rental_requests,
     :class_name => "CatRentalRequest",
@@ -6,8 +9,6 @@ class Cat < ActiveRecord::Base
     :primary_key => :id,
     :dependent => :destroy
   )
-
-  COLORS = ["black", "brown", "orange", "brownish-orange" ,"calico", "mauve"]
 
   validates :age, :birthdate, :color, :name, :sex, :description, presence: true
   validates :age, numericality: true
