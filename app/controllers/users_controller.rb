@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :require_current_user!, except: [:create, :new]
+
   def create
     @user = User.new(user_params)
 
@@ -16,8 +18,13 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    render :show
+    @user = current_user
+    if Integer(params[:id]) != @user.id
+      redirect_to user_url(@user)
+      flash[:notice] = "Can only view your profile"
+    else
+      render :show
+    end
   end
 
 
