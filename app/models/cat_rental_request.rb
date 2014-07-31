@@ -6,6 +6,8 @@ class CatRentalRequest < ActiveRecord::Base
     :primary_key => :id
   )
 
+  has_one :owner, source: :cat, through: :owner
+
   validates :cat_id, :start_date, :end_date, presence: true
   validates :status, inclusion: { in: ["PENDING", "APPROVED", "DENIED"] }
   validate :no_two_overlapping_requests, :if => :status_approved?

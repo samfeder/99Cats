@@ -1,5 +1,5 @@
 class RentalRequestsController < ApplicationController
-
+  before_action :validate_rental_ownership, only: [:new, :create, :approve, :deny]
   def index
     @rentals = CatRentalRequest.all.includes(:cat)
     render :index

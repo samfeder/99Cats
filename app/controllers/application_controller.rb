@@ -23,4 +23,23 @@ class ApplicationController < ActionController::Base
   def require_current_user!
     redirect_to new_session_url if current_user.nil?
   end
+
+  def validate_cat_ownership
+    @cat = Cat.find(params[:id])
+    if @cat.user_id != current_user.id
+      flash[:notice] = ["Can't edit someone else's cat."]
+      redirect_to cats_url
+    end
+  end
+
+  def validate_rental_ownership
+    @rental = CatRentalRequest.find(params[:id])
+    fail
+    if @rental.user_id != current_user.id
+      flash[:notice] = ["Can't approve/deny someone else's rental."]
+      redirect_to rental_request_url
+    end
+  end
+
+
 end

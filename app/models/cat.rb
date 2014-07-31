@@ -10,6 +10,13 @@ class Cat < ActiveRecord::Base
     :dependent => :destroy
   )
 
+  belongs_to(
+    :owner,
+    :class_name => "User",
+    :foreign_key => :user_id,
+    :primary_key => :id
+  )
+
   validates :age, :birthdate, :color, :name, :sex, :description, presence: true
   validates :age, numericality: true
   validates :color, inclusion: { in: COLORS,

@@ -3,10 +3,16 @@
 <!--ADD TABS -->
 
 <table>
+
   <tr align="right">
-    <th>Age: &nbsp;</th>
-    <td align="left"><%= @cat.age %></td>
+    <th>Owner: &nbsp;</th>
+    <td align="left"><%= @cat.owner.username %></td>
   </tr>
+
+  <tr align="right">
+      <th>Age: &nbsp;</th>
+      <td align="left"><%= @cat.age %></td>
+    </tr>
 
   <tr align="right">
     <th>Color: &nbsp;</th>

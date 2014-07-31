@@ -1,6 +1,15 @@
 class User < ActiveRecord::Base
   attr_reader :password
 
+  has_many(
+    :cats,
+    :class_name => "Cat",
+    :foreign_key => :user_id,
+    :primary_key => :id
+  )
+
+  has_many :rental_requests, :through => :cats, :source => :rental_requests
+
   validates :username, presence: :true
   validates :password_digest, presence: {message: "Password can't be blank"}
   validates :username, length: { minimum: 8 }
