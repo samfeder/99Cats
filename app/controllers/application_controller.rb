@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   def login!(user)
     @current_user = user
     session[:session_token] = user.session_token
-    redirect_to user_url(user)
+    redirect_to cats_url
   end
 
   def logout!

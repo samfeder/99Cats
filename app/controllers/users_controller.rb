@@ -3,15 +3,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
     if @user.save
       login!(@user)
     else
+      flash.now[:notice] = @user.errors.full_messages
       render :new
     end
   end
-
-
 
   def new
     @user = User.new
@@ -21,7 +19,7 @@ class UsersController < ApplicationController
     @user = current_user
     if Integer(params[:id]) != @user.id
       redirect_to user_url(@user)
-      flash[:notice] = "Can only view your profile"
+      flash[:notice] = ["#{@user.username}, you can only view your profile"]
     else
       render :show
     end

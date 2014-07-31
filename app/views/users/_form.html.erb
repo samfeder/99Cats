@@ -8,9 +8,9 @@
     type="hidden"
     value="<%= method %>">
   <input
-    name="_method"
+    name="authenticity_token"
     type="hidden"
-    value="<%= method %>">
+    value="<%= form_authenticity_token %>">
 
   <label for="user_username">Username</label>
   <input

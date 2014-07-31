@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
   validates :password_digest, presence: {message: "Password can't be blank"}
   validates :username, length: { minimum: 8 }
   validates :password, length: { minimum: 6, allow_nil: true }
-  validates :username, uniqueness: true
+  validates :username, uniqueness:
+          { message: "already taken! Please log in or choose another username!"}
   validates :session_token, presence: true
   after_initialize :ensure_session_token
 
